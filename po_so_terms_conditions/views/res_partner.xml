@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <data>
+
+        <record id="view_partner_property_form" model="ir.ui.view">
+            <field name="name">res.partner.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="supplier_rank" invisible="1"/>
+                    <field name="is_vendor"/>
+                    <field name="supplier_seq" readonly="1"
+                        attrs="{'invisible': [('is_vendor', '=', False)]}"/>
+                </field>
+                <group name="container_row_2" position="after">
+                    <group string="Bank Accounts" name="banks" groups="account.group_account_invoice,account.group_account_readonly">
+                        <field name="bank_ids" nolabel="1" colspan="2" context="{'default_allow_out_payment': True}">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="bank_id"/>
+                                <field name="acc_number"/>
+                                <field name="allow_out_payment" widget="boolean_toggle"/>
+                                <field name="acc_holder_name" invisible="1"/>
+                            </tree>
+                        </field>
+                        <button type="action" class="btn-link"
+                            name="%(base.action_res_partner_bank_account_form)d"
+                            context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
+                            string="View accounts detail"
+                            colspan="2"
+                        />
+                    </group>
+                </group>
+                <xpath expr="//page[@name='sales_purchases']/group" position="inside">
+                        <group name="terms_conditionsΩs" priority="7">
+                            <group string="Terms and Conditions" name="term_cond" colspan="2">
+                                <field name="terms_conditions" placeholder="Terms and Conditions"/>
+                            </group>
+                        </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+<!--                <xpath expr="//page[@name='sales_purchases']/group" position="inside">-->
+<!--                    <group name="bank_accounts" priority="7">-->
+<!--                        <group string="Bank Accounts" name="banks" groups="account.group_account_invoice,account.group_account_readonly">-->
+<!--                            <field name="bank_ids" nolabel="1" colspan="4" context="{'default_allow_out_payment': True}">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="sequence" widget="handle"/>-->
+<!--                                    <field name="bank_id"/>-->
+<!--                                    <field name="acc_number"/>-->
+<!--                                    <field name="allow_out_payment" widget="boolean_toggle"/>-->
+<!--                                    <field name="acc_holder_name" invisible="1"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                            <button type="action" class="btn-link"-->
+<!--                                name="%(base.action_res_partner_bank_account_form)d"-->
+<!--                                context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}"-->
+<!--                                string="View accounts detail"-->
+<!--                                colspan="2"-->
+<!--                            />-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//page[@name='sales_purchases']/group" position="inside">-->
+<!--&lt;!&ndash;                        <group name="terms_conditionsΩs" priority="7">&ndash;&gt;-->
+<!--                            <group string="Terms and Conditions" name="term_cond" colspan="2" priority="9">-->
+<!--                                <field name="terms_conditions" placeholder="Terms and Conditions"/>-->
+<!--                            </group>-->
+<!--&lt;!&ndash;                        </group>&ndash;&gt;-->
+<!--                </xpath>-->
