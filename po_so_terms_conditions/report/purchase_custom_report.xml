@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <template id="external_layout_standard" inherit_id="web.external_layout_standard">
+            <xpath expr="//div[1]" position="replace">
+
+            </xpath>
+        </template>
+        <template id="report_purchase_custom">
+
+            <t t-call="web.external_layout">
+                <div style="text-align: center;">
+                    <img src="po_so_terms_conditions/static/img/logo.png" alt="Your Image"
+                         style="max-width: 100%; height: auto;padding-top: 0"/>
+                    <h2 style="color: black; font-size: 16px; text-decoration: underline;">Purchase Order</h2>
+                </div>
+                <!-- Main Content -->
+                <main>
+                    <div>
+                        <table style="border-collapse: collapse; width: 50%; float: left; padding: 10px;">
+                            <tr>
+                                <td style="width: 100%; padding-right: 10px;">
+                                    <strong>Vendor Name</strong>
+                                    <br/>
+                                    <t t-foreach="docs" t-as="purchase_order">
+                                        <span t-field="purchase_order.partner_id.name"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="width: 30%; border-collapse: collapse; float: right; padding: 10px;">
+                            <tr>
+                                <td style="width: 50%; padding-left: 10px; ">
+                                    <strong>Date:</strong>
+                                    <br/>
+                                    <span t-field="docs.date_order"/>
+                                </td>
+                                <td style="width: 50%; padding-left: 10px;">
+                                    <strong>Page</strong>
+                                    <br/>
+                                    <span t-esc="page_number"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="clear: both; margin-top: 20px;"></div>
+
+                    <div>
+                        <table style="width: 50%; border-collapse: collapse; float: left; padding: 50px;">
+                            <tr>
+                                <td style="width: 100%; padding-right: 10px;">
+                                    <strong>Vendor Address:</strong>
+                                    <br/>
+                                    <t t-foreach="docs" t-as="purchase_order">
+                                        <span t-field="purchase_order.partner_id.street"/>,
+                                        <span t-field="purchase_order.partner_id.street2"/>,
+                                        <span t-field="purchase_order.partner_id.city"/>,
+                                        <span t-field="purchase_order.partner_id.state_id.name"/>
+                                        <br/>
+                                        <span t-field="purchase_order.partner_id.country_id.name"/>
+                                        <br/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="width: 30%; border-collapse: collapse; float: right; padding: 30px;">
+                            <tr>
+                                <td style="width: 50%; padding-left: 10px;">
+                                    <strong>Purchase Order Number:</strong>
+                                    <br/>
+                                    <span t-field="docs.name"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="clear: both; margin-top: 40px;"></div>
+
+                    <div>
+                        <table style="width: 30%; border-collapse: collapse; float: right; padding: 70px;">
+                            <tr>
+                                <td style="width: 100%; padding-left: 10px;">
+                                    <strong>INCOTERMS:</strong>
+                                    <br/>
+                                    <t t-foreach="docs" t-as="purchase_order">
+                                        <span t-field="purchase_order.incoterm_id"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 100%; padding-left: 10px;">
+                                    <strong>CATEGORY:</strong>
+                                    <br/>
+                                    <t t-foreach="docs" t-as="purchase_order">
+                                        <span t-field="purchase_order.po_category"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Vendor Info Table -->
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                        <!-- Vendor Name Row -->
+                        <tr>
+                            <td style="width: 20%;">
+                                <strong>Vendor Number</strong>
+                            </td>
+                            <td style="width: 20%;">
+                                <strong>Contact</strong>
+                            </td>
+                            <td style="width: 20%;">
+                                <strong>Reference</strong>
+                            </td>
+                            <td style="width: 20%;">
+                                <strong>Payment Terms</strong>
+                            </td>
+                            <td style="width: 20%;">
+                                <strong>Dispatched Date</strong>
+                            </td>
+                        </tr>
+                        <t t-foreach="docs" t-as="purchase_order">
+                            <tr>
+                                <td>
+                                    <span t-field="purchase_order.partner_id.phone"/>
+                                </td>
+                                <td>
+                                    <span t-field="purchase_order.partner_id.email"/>
+                                </td>
+                                <td>
+                                    <span t-field="purchase_order.partner_ref"/>
+                                </td>
+                                <td>30 DAYS</td>
+                                <td>
+                                    <span t-field="purchase_order.date_order"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <!-- Additional Rows -->
+                    </table>
+
+                    <!-- Purchase Order Table -->
+                    <table class="table table-bordered"
+                           style="margin-top: 20px; border-collapse: collapse; color: black; width: 100%;">
+                        <thead style="background-color: black; color: white;">
+                            <tr>
+                                <th>Seq</th>
+                                <th>Item Number</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Shelf Pack</th>
+                                <th>Unit Cost</th>
+                                <th>Qty. Ordered</th>
+                                <th>Extended Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <t t-set="line_sequence" t-value="1"/>
+
+                            <!-- Loop through purchase order lines -->
+                            <t t-foreach="docs" t-as="purchase_order">
+                                <t t-foreach="purchase_order.order_line" t-as="line">
+                                    <tr>
+                                        <td style="padding: 5px;">
+                                            <t t-esc="line_sequence"/>
+                                        </td>
+                                        <td style="padding: 5px;">
+                                            <span t-field="line.product_id.default_code"/>
+                                        </td>
+                                        <td style="padding: 5px;">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td style="padding: 5px;">
+                                            <span t-field="line.product_type"/>
+                                        </td>
+                                        <td style="padding: 5px;">
+                                            <t t-if="line.product_packaging_id">
+                                                <span t-field="line.product_packaging_id.name"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>Unpacked</span>
+                                            </t>
+                                        </td>
+                                        <!--                                        <td style="padding: 5px;"><span t-field="line.product_packaging_id.name"/></td>-->
+                                        <td style="padding: 5px;">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td style="padding: 5px;">
+                                            <span t-field="line.product_qty"/>
+                                            <span t-field="line.product_uom.name" groups="uom.group_uom"/>
+                                        </td>
+                                        <td style="padding: 5px;">
+                                            <t t-esc="line.price_subtotal"/>
+                                            <t t-esc="line.currency_id.symbol"/>
+
+
+                                        </td>
+
+                                    </tr>
+                                    <t t-set="line_sequence" t-value="line_sequence + 1"/>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+
+
+                    <!-- Subtotal, Discount, Total Purchase Order, and Terms -->
+                    <t t-if="docs">
+                        <table class="table table-bordered"
+                               style="margin-top: 20px; border-collapse: collapse; color: black;">
+                            <tbody>
+                                <tr>
+                                    <td colspan="6">
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <t t-foreach="docs" t-as="purchase_order">
+                                            <!-- Fetch and display Subtotal data -->
+                                            <t t-esc="purchase_order.amount_untaxed"/>
+                                            <t t-esc="purchase_order.currency_id.symbol"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <strong>Discount</strong>
+                                    </td>
+                                    <td>0.00% 0.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <strong>Total Purchase Order</strong>
+                                    </td>
+                                    <td>
+                                        <t t-foreach="docs" t-as="purchase_order">
+                                            <!-- Fetch and display the numeric total purchase order value -->
+                                            <t t-esc="purchase_order.amount_total"/>
+                                            <t t-esc="purchase_order.currency_id.symbol"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <strong>Total Order Value:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-foreach="docs" t-as="purchase_order">
+                                            <!-- Fetch and display the numeric total order value -->
+                                            <t t-esc="purchase_order.amount_untaxed"/>
+                                            <t t-esc="purchase_order.currency_id.symbol"/>
+                                        </t>
+                                        <!-- Convert the numeric value to words using the Python function -->
+                                        <t t-esc="purchase_order.qty_to_text(purchase_order.amount_untaxed)"/>
+                                        <t t-esc="purchase_order.currency_id.name"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+
+<!--                                    <td colspan="7">-->
+<!--                                        Terms:-->
+<!--                                        <br/>-->
+<!--                                        1. Delivery address: Kuwait - Sulaiybiya Area - Beside Agility Warehouses - -->
+<!--                                        Sulaiybiya Literal Expansion - Block H4 &amp; H5.-->
+<!--                                        <br/>-->
+<!--                                        2. Kuwait Agro doesn't accept back orders unless communicated and approved,-->
+<!--                                        delivery should be in line with communicated date.-->
+<!--                                        <br/>-->
+<!--                                        3. Kuwait Agro won't pay for the following: Items invoiced &amp; not ordered,-->
+<!--                                        invoiced &amp; not received, invoiced more than ordered, price variance versus-->
+<!--                                        PO and not meeting Shelf life agreement.-->
+<!--                                        <br/>-->
+<!--                                        4. Containers should be neatly palletized.-->
+<!--                                        <br/>-->
+<!--                                        5. Food Shipments require a sample box (2 pcs of each SKU) on a pallet on the-->
+<!--                                        mouth of the container.-->
+<!--                                        <br/>-->
+<!--                                    </td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </main>
+
+                <!-- Footer Section -->
+                <footer>
+                    <div t-foreach="docs" t-as="purchase_order1">
+                        <!-- Fetch and display the numeric total order value -->
+                        <t t-esc="purchase_order1.notes"/>
+                    </div>
+                    <!-- Signature and Date Section -->
+                    <div style="width: 50%; float: left;">
+                        <p>Signature: ____________________</p>
+                    </div>
+                    <div style="width: 50%; float: right; text-align: right;">
+                        <p>Date: ____________________</p>
+                    </div>
+                </footer>
+            </t>
+
+        </template>
+        <template id="report_external_layout_custom">
+            <t t-name="po_so_terms_conditions.report_purchase_invoice">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="lang" t-value="docs.partner_id.lang"/>
+                        <t t-call="po_so_terms_conditions.report_purchase_custom" t-lang="lang"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

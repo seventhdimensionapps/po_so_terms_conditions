@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="action_new_purchase_order_report" model="ir.actions.report">
+            <field name="name">New Purchase Order Report</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">po_so_terms_conditions.report_external_layout_custom</field>
+            <field name="report_file">po_so_terms_conditions.report_external_layout_custom</field>
+            <field name="print_report_name">'New Purchase Order Report - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
+
+
+
+
+

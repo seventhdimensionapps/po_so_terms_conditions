@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+
+<record id="purchase_order_form_inherit" model="ir.ui.view">
+    <field name="name">purchase.order.form.inherit</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form"/>
+    <field name="arch" type="xml">
+        <data>
+            <!-- Locate the "Print" button inside the header and add your custom report action -->
+            <xpath expr="//button[@name='print_quotation']" position="after">
+                <button name="print_quotation" string="Print RFQ" type="object" states="sent"  class="oe_highlight" groups="base.group_user" data-hotkey="k" report_name="po_so_terms_conditions.report_purchase_custom"/>
+            </xpath>
+            <xpath expr="//field/tree/field[@name='name']" position="after">
+                <field name="lead_time" optional="show"/>
+            </xpath>
+
+        </data>
+    </field>
+</record>
+
+
+<!--<record id="purchase_order_form_inherit" model="ir.ui.view">-->
+<!--    <field name="name">purchase.order.form.inherit</field>-->
+<!--    <field name="model">purchase.order</field>-->
+<!--    <field name="inherit_id" ref="purchase.purchase_order_form"/>-->
+<!--    <field name="arch" type="xml">-->
+<!--        <form string="Purchase Order" class="o_purchase_order">-->
+<!--            &lt;!&ndash; ... Other buttons ... &ndash;&gt;-->
+
+<!--            &lt;!&ndash; Add your custom report option under the "Print" button &ndash;&gt;-->
+<!--       <button name="print_quotation" string="Print RFQ" type="object" states="sent"  class="oe_highlight" groups="base.group_user" data-hotkey="k" report_name="purchase_order_custom.report_purchase_custom"/>-->
+
+<!--            &lt;!&ndash; ... More buttons ... &ndash;&gt;-->
+
+<!--            <field name="state" widget="statusbar" statusbar_visible="draft,sent,purchase" readonly="1"/>-->
+<!--        </form>-->
+<!--    </field>-->
+<!--</record>-->
+
+
+
+    </data>
+    </odoo>
