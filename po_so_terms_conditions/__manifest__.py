@@ -22,11 +22,8 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/purchase_report_view.xml',
         'data/sequences.xml',
         'report/purchase_custom_report.xml',
-        'views/purchase_order.xml',
-        'views/purchase_menu.xml',
         'views/res_partner.xml',
     ],
     'installable': True,
