@@ -2,7 +2,6 @@
 {
     'name': "TERMS & CONDITIONS IN PO & SO",
 
-    'version': '16.0',
     'summary': 'Manage pricing and terms & conditions for PO and SO',
     'description': """
         This module adds pricing functionality and Terms & Conditions (T&C) 
@@ -11,9 +10,11 @@
         - Show T&C for Customers on Sales Invoices
     """,
 
-    'author': "beyz",
+    "author": "Seventh Dimension Company",
     'website': "https://www.7d.com.kw",
-    'category': 'kuwait-agro',
+    'category': "Purchases",
+    "version": "1.0",
+    'license': 'OPL-1',
 
 
     # any module necessary for this one to work correctly
@@ -31,4 +32,5 @@
     'auto_install': False,
     'price': 199.00,
     'currency': 'USD',
+    'images': ['static/description/cover.png'],
 }
