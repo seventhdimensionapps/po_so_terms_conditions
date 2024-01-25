@@ -2,12 +2,12 @@
 {
     'name': "VENDOR TERMS & CONDITIONS",
 
-    'summary': 'Display/Update/Print Vendor's Terms and Conditions',
+    'summary': 'Display/Update/Print Vendor Terms and Conditions',
     'description': """
         This module adds pricing functionality and Terms & Conditions (T&C) 
         - Update T&C on the Vendor Page
         - Display T&C on Purchase Orders
-        - T&C is now available on the "Printed" Purchase Orders
+        - T&C is now available on the Printed Purchase Orders
     """,
 
     "author": "Seventh Dimension Company",
