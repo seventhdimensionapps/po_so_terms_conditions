@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "TERMS & CONDITIONS IN PO & SO",
+    'name': "VENDOR TERMS & CONDITIONS",
 
-    'summary': 'Manage pricing and terms & conditions for PO and SO',
+    'summary': 'Display/Update/Print Vendor's Terms and Conditions',
     'description': """
         This module adds pricing functionality and Terms & Conditions (T&C) 
-        - Display T&C on the Vendor Page
-        - Reflect T&C on Purchase Orders and its Print
-        - Show T&C for Customers on Sales Invoices
+        - Update T&C on the Vendor Page
+        - Display T&C on Purchase Orders
+        - T&C is now available on the "Printed" Purchase Orders
     """,
 
     "author": "Seventh Dimension Company",
@@ -30,7 +30,7 @@
     'installable': True,
     'application': True,
     'auto_install': False,
-    'price': 199.00,
+    'price': 75.00,
     'currency': 'USD',
     'images': ['static/description/cover.png'],
 }
